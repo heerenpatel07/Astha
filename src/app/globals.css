@@ -1,34 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;500;700&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Core Colors */
+  --bg-dark: #0f1115;
+  --bg-card: #181a20;
+  --bg-card-hover: #1f2129;
+  
+  /* Metallic / Text */
+  --text-main: #f0f2f5;
+  --text-muted: #a1a5b3;
+  --metallic-silver: #c0c4cc;
+  --metallic-dark: #2a2d35;
+  
+  /* Accent Colors */
+  --accent-orange: #f26d21;
+  --accent-orange-hover: #e05e15;
+  --accent-blue: #0070f3;
+  
+  /* Utilities */
+  --border-radius: 8px;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --glass-bg: rgba(24, 26, 32, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
 }
 
 * {
@@ -37,13 +30,240 @@ body {
   margin: 0;
 }
 
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* Base Layout Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 80px 0;
+}
+
+/* Button Component */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 18px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background-color: var(--accent-orange);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-25deg);
+  transition: all 0.7s ease;
+  z-index: 1;
+}
+
+.btn-primary:hover::before {
+  left: 200%;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(242, 109, 33, 0.3);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--text-main);
+}
+
+.btn-outline:hover {
+  background-color: var(--text-main);
+  color: var(--bg-dark);
+}
+
+/* Glassmorphism Card */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 30px;
+  transition: var(--transition);
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Text Gradients */
+@keyframes gradientPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--metallic-silver), #ffffff, var(--metallic-silver));
+  background-size: 200% auto;
+  animation: gradientPulse 4s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(to right, var(--accent-orange), #ff9a5a, var(--accent-orange));
+  background-size: 200% auto;
+  animation: gradientPulse 3s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Welding/Laser cutting flicker effects on click */
+@keyframes weldingFlicker {
+  0% { 
+    box-shadow: 0 0 10px #ffffff, 0 0 25px var(--accent-orange), inset 0 0 8px var(--accent-orange); 
+    filter: brightness(1.4);
+    opacity: 1;
+  }
+  30% { 
+    box-shadow: 0 0 5px #ffffff, 0 0 15px var(--accent-orange), inset 0 0 4px var(--accent-orange); 
+    filter: brightness(1.1);
+    opacity: 0.9;
+  }
+  70% { 
+    box-shadow: 0 0 15px #ffffff, 0 0 35px var(--accent-orange), inset 0 0 12px var(--accent-orange); 
+    filter: brightness(1.5);
+    opacity: 0.85;
+  }
+  100% { 
+    box-shadow: 0 0 10px #ffffff, 0 0 25px var(--accent-orange), inset 0 0 8px var(--accent-orange); 
+    filter: brightness(1.4);
+    opacity: 1;
+  }
+}
+
+/* Text Flicker Effect for Links */
+@keyframes textFlicker {
+  0% { text-shadow: 0 0 5px #ffffff, 0 0 12px var(--accent-orange); }
+  50% { text-shadow: 0 0 2px #ffffff, 0 0 6px var(--accent-orange); opacity: 0.9; }
+  100% { text-shadow: 0 0 5px #ffffff, 0 0 12px var(--accent-orange); }
+}
+
+button:active, .btn:active {
+  animation: weldingFlicker 0.12s infinite;
+  color: #fff !important;
+  border-color: var(--accent-orange) !important;
+}
+
+a:not(.btn):active {
+  animation: textFlicker 0.12s infinite;
+  color: #fff !important;
+}
+
+/* Laser Slicing and Particle Spark Explosion click effect */
+.spark-container {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999999;
+  width: 0;
+  height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.laser-beam {
+  position: absolute;
+  width: 2px;
+  height: 70px;
+  background: linear-gradient(to bottom, transparent, #ffffff, var(--accent-orange), transparent);
+  box-shadow: 0 0 8px #ffffff, 0 0 16px var(--accent-orange);
+  opacity: 0;
+  animation: laserCut 0.35s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes laserCut {
+  0% {
+    transform: translateY(-35px) scaleY(0.1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0px) scaleY(1.3);
+  }
+  100% {
+    transform: translateY(35px) scaleY(0.1);
+    opacity: 0;
+  }
+}
+
+.spark-particle {
+  position: absolute;
+  border-radius: 99px;
+  opacity: 0;
+  transform-origin: center bottom;
+  box-shadow: 0 0 5px currentColor;
+  animation-name: sparkShoot;
+  animation-timing-function: cubic-bezier(0.05, 0.8, 0.15, 1.0);
+  animation-fill-mode: forwards;
+}
+
+@keyframes sparkShoot {
+  0% {
+    transform: translate(0, 0) rotate(var(--rot)) scaleY(0.1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(var(--rot)) scaleY(1.3);
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scaleY(0.2);
+    opacity: 0;
   }
 }

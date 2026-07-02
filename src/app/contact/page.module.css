@@ -1,0 +1,101 @@
+.contactHeader {
+  padding: 80px 0 25px;
+  background: linear-gradient(to bottom, var(--bg-card), var(--bg-dark));
+  text-align: center;
+}
+
+.title {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 50px;
+  padding: 60px 0;
+}
+
+@media (min-width: 992px) {
+  .contactGrid {
+    grid-template-columns: 1fr 1.5fr;
+  }
+}
+
+.infoCard {
+  background: var(--bg-card);
+  padding: 40px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--glass-border);
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.infoIcon {
+  color: var(--accent-orange);
+  background: rgba(242, 109, 33, 0.1);
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.infoText h4 {
+  color: var(--metallic-silver);
+  margin-bottom: 5px;
+}
+
+.infoText p {
+  color: var(--text-muted);
+}
+
+.formCard {
+  background: var(--bg-card);
+  padding: 40px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--glass-border);
+}
+
+.formGroup {
+  margin-bottom: 25px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--metallic-silver);
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s;
+}
+
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: var(--accent-orange);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 150px;
+}

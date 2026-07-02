@@ -1,0 +1,229 @@
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+}
+
+.admin-sidebar {
+  width: 280px;
+  background-color: var(--bg-card);
+  border-right: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.admin-brand {
+  padding: 30px 20px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.admin-brand span {
+  color: var(--accent-orange);
+}
+
+.admin-nav {
+  padding: 20px 0;
+  flex-grow: 1;
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 25px;
+  color: var(--text-muted);
+  transition: var(--transition);
+  border-left: 3px solid transparent;
+}
+
+.admin-nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+  color: var(--text-main);
+}
+
+.admin-nav-link.active {
+  background-color: rgba(242, 109, 33, 0.1);
+  color: var(--accent-orange);
+  border-left-color: var(--accent-orange);
+}
+
+.admin-footer {
+  padding: 20px;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.admin-main {
+  flex-grow: 1;
+  margin-left: 280px;
+  padding: 40px;
+  min-height: 100vh;
+}
+
+/* Mobile Responsiveness styling */
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
+  
+  .admin-sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  
+  .admin-brand {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  
+  .admin-brand br, .admin-brand small {
+    display: none;
+  }
+
+  .admin-nav {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 10px 15px;
+    gap: 10px;
+  }
+
+  .admin-nav-link {
+    padding: 10px 15px;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    justify-content: center;
+  }
+
+  .admin-nav-link.active {
+    border-left-color: transparent;
+    border-bottom-color: var(--accent-orange);
+    background-color: rgba(242, 109, 33, 0.05);
+  }
+
+  .admin-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 10px 20px;
+    border-top: 1px solid var(--glass-border);
+  }
+  
+  .admin-footer .admin-nav-link {
+    border-bottom: none;
+  }
+
+  .admin-main {
+    margin-left: 0;
+    padding: 20px 15px;
+  }
+
+  .admin-card {
+    padding: 15px;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .admin-header button {
+    width: 100%;
+  }
+}
+
+/* Admin Table Styles */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 20px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th, .admin-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.admin-table th {
+  color: var(--metallic-silver);
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.admin-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.admin-form-group {
+  margin-bottom: 20px;
+}
+
+.admin-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--metallic-silver);
+}
+
+.admin-input, .admin-textarea {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+}
+
+.admin-input:focus, .admin-textarea:focus {
+  outline: none;
+  border-color: var(--accent-orange);
+}
+
+.admin-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Spinner Animation Helper */
+.animate-spin {
+  animation: admin-spin 1.2s linear infinite;
+}
+
+@keyframes admin-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
