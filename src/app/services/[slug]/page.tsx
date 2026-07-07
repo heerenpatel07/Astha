@@ -57,7 +57,10 @@ export default async function ServiceDetail({
         updatedAt: new Date(),
       }
     ];
-    service = fallbacks.find(s => s.slug === slug) || null;
+    service = fallbacks.find(s => s.slug === slug)
+      || fallbacks.find(s => slug.startsWith(s.slug))
+      || fallbacks.find(s => s.slug.startsWith(slug.split('-')[0]))
+      || fallbacks[0];
   }
 
   if (!service) {
