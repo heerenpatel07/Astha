@@ -64,6 +64,30 @@ export default async function ServiceDetail({
     notFound();
   }
 
+  const whatsappSetting = await prisma.siteSetting.findUnique({
+    where: { key: "social_whatsapp" }
+  });
+  const phoneSetting = await prisma.siteSetting.findUnique({
+    where: { key: "phone" }
+  });
+
+  let whatsappBaseUrl = "https://wa.me/917600969878";
+  if (whatsappSetting?.value) {
+    const value = whatsappSetting.value.trim();
+    if (value.startsWith("http")) {
+      whatsappBaseUrl = value;
+    } else {
+      const cleaned = value.replace(/[^0-9]/g, "");
+      whatsappBaseUrl = `https://wa.me/${cleaned}`;
+    }
+  } else if (phoneSetting?.value) {
+    const cleaned = phoneSetting.value.replace(/[^0-9]/g, "");
+    whatsappBaseUrl = `https://wa.me/${cleaned}`;
+  }
+
+  const whatsappMessage = encodeURIComponent(`Hello, I would like to inquire about your "${service.name}" service.`);
+  const whatsappLink = `${whatsappBaseUrl}${whatsappBaseUrl.includes("?") ? "&" : "?"}text=${whatsappMessage}`;
+
   let albumImages: string[] = [];
   try {
     if (service.images) {
@@ -99,9 +123,40 @@ export default async function ServiceDetail({
             <br />
             <p>{service.description}</p>
             <br />
-            <Link href="/contact" className="btn btn-primary">
-              Request this Service
-            </Link>
+            <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+              <Link href="/contact" className="btn btn-primary">
+                Request this Service
+              </Link>
+              <a 
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{
+                  backgroundColor: '#25D366',
+                  color: '#fff',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  transition: 'var(--transition)'
+                }}
+                onMouseOver={e => {
+                  e.currentTarget.style.backgroundColor = '#128C7E';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(37, 211, 102, 0.3)';
+                }}
+                onMouseOut={e => {
+                  e.currentTarget.style.backgroundColor = '#25D366';
+                  e.currentTarget.style.transform = 'none';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.005 5.291 5.3 0 11.794 0c3.148.001 6.107 1.227 8.331 3.453c2.224 2.225 3.45 5.186 3.45 8.339c-.006 6.505-5.301 11.797-11.795 11.797c-2.001-.001-3.97-.509-5.719-1.479L0 24zm6.59-4.846c1.6.95 3.472 1.453 5.385 1.456c5.4 0 9.794-4.394 9.8-9.798c0-2.617-1.02-5.078-2.871-6.93C17.062 2.03 14.6 1.01 12 1.01C6.59 1.01 2.2 5.405 2.197 10.81c0 1.96.512 3.878 1.483 5.584l-.97 3.547l3.634-.953zM16.9 14.16c-.274-.137-1.62-.8-1.87-.89c-.253-.09-.438-.137-.622.137c-.184.274-.712.89-.873 1.072c-.16.183-.32.206-.595.068c-.274-.137-1.157-.426-2.203-1.36c-.814-.726-1.364-1.623-1.524-1.897c-.16-.274-.017-.422.12-.558c.123-.122.274-.32.411-.48c.137-.16.183-.274.274-.457c.09-.183.046-.343-.023-.48c-.068-.137-.622-1.5-.853-2.057c-.225-.54-.45-.467-.622-.475c-.16-.008-.344-.01-.527-.01c-.184 0-.482.07-.735.343c-.253.274-.964.943-.964 2.3c0 1.357.988 2.668 1.125 2.85c.137.183 1.944 2.969 4.71 4.16c.658.283 1.173.453 1.573.58c.66.21 1.26.18 1.737.11.532-.08 1.62-.663 1.85-1.272c.23-.609.23-1.13.16-1.218c-.07-.088-.253-.137-.528-.274z"/>
+                </svg>
+                Inquire on WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </section>
