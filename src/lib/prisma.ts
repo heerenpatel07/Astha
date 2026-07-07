@@ -3,7 +3,7 @@ import path from 'path'
 
 const getDatabaseUrl = () => {
   const envUrl = process.env.DATABASE_URL;
-  if (envUrl && !envUrl.startsWith('file:.')) {
+  if (envUrl && envUrl.startsWith('file:')) {
     return envUrl;
   }
   const dbDir = process.env.PERSISTENT_DIR || path.join(process.cwd(), 'prisma');
