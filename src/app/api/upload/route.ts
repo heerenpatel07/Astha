@@ -25,8 +25,10 @@ export async function POST(req: Request) {
     const cleanBaseName = path.basename(file.name, ext).replace(/[^a-zA-Z0-9]/g, "_");
     const uniqueFilename = `${cleanBaseName}_${Date.now()}${ext}`;
 
-    // Define static storage directory
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
+    // Define storage directory (use persistent volume path if configured)
+    const uploadDir = process.env.PERSISTENT_DIR
+      ? path.join(process.env.PERSISTENT_DIR, "uploads")
+      : path.join(process.cwd(), "public", "uploads");
     
     // Ensure path exists
     await mkdir(uploadDir, { recursive: true });

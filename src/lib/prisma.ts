@@ -6,7 +6,8 @@ const getDatabaseUrl = () => {
   if (envUrl && !envUrl.startsWith('file:.')) {
     return envUrl;
   }
-  const dbPath = path.join(process.cwd(), 'prisma', 'dev.db');
+  const dbDir = process.env.PERSISTENT_DIR || path.join(process.cwd(), 'prisma');
+  const dbPath = path.join(dbDir, 'dev.db');
   const formattedPath = dbPath.replace(/\\/g, '/');
   return `file:${formattedPath}`;
 };
