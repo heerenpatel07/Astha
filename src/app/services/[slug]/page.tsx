@@ -89,7 +89,7 @@ export default async function ServiceDetail({
           <div className={styles.imageContainer}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
-              src={service.thumbnail || "/uploads/Screenshot_2026_07_02_211258_1783007010969.png"} 
+              src={service.thumbnail || "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80"} 
               alt={service.name} 
               className={styles.image}
             />
